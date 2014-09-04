@@ -325,7 +325,7 @@ function GameViewModel(urls) {
                 //commented
             });
 
-            this.chat().comments.push(currentPlayer.handle + ": " + this.commentToAdd());
+            this.chat().comments.push("<span>" + currentPlayer.handle + ":</span> " + this.commentToAdd());
             this.commentToAdd("");
         }
         return;
@@ -334,7 +334,7 @@ function GameViewModel(urls) {
     self.displayComment = function(data) {
       var player = self.playerInSeat(data.seatNumber);
       if (!player.isCurrentPlayer())
-        this.chat().comments.push(player.handle + ": " + data.message);
+        this.chat().comments.push("<span>" + player.handle + ":</span> " + data.message);
 
       return;
     };

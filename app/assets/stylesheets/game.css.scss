@@ -1,3 +1,5 @@
+html, body, .container-fluid, .game_content {height: 97%}
+
 body {
    background: image-url('debut_light.png');
 }
@@ -61,3 +63,26 @@ body {
      border: 1px solid red;
 }
 
+#chat {
+  height:100%;
+  border-right:1px solid #ccc;
+  ul {
+    li {
+      span {
+        font-weight:bold;
+      }
+    }
+  }
+  form {
+    position:absolute;
+    bottom:0;
+    background: image-url('debut_light.png');
+    padding:20px 0;
+    textarea {
+      border-radius:5px;
+      width:90%;
+      border:1px solid #ccc;
+      margin:0 0 10px;
+    }
+  }
+}

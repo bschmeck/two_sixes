@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row game_content">
     <div class="col-md-8">
       <!-- ko foreach: rows -->
       <div class="row gameRow" data-bind="foreach: columns">
@@ -48,13 +48,13 @@
       </div>
       <!-- /ko -->
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2" id="chat">
       <ul style="padding:0; margin:0;" data-bind="foreach: chat().comments">
-       <li style="padding:0 0 5px; list-style:none;" data-bind="text: $data"></li>
+       <li style="padding:0 0 5px; list-style:none;" data-bind="html: $data"></li>
       </ul>
 
       <form data-bind="submit: addComment">
-          <textarea data-bind='value: commentToAdd, valueUpdate: "afterkeydown"' style="border-radius:5px; border:1px solid #ccc; margin:0 0 10px;"></textarea>
+          <textarea data-bind='value: commentToAdd, valueUpdate: "afterkeydown"'></textarea>
           <button type="submit" data-bind="enable: commentToAdd().length > 0" class="btn btn-primary">Comment</button>
       </form>
     </div>
