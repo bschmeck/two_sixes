@@ -16,6 +16,8 @@ function GameViewModel(urls) {
     this.diceTotal = ko.observable();
     this.bidMade = ko.observable(false);
     this.log = ko.observable(new Log());
+    this.chat = ko.observable(new Chat());
+    this.commentToAdd = ko.observable("");
 
     self.players = ko.observableArray();
     self.addPlayer = function(player) {
@@ -303,4 +305,19 @@ function GameViewModel(urls) {
         self.currentBid(null);
         self.diceTotal(null);
     }
+
+    //Chat
+    self.addComment = function() {
+        var currentPlayer;
+        for (var i = 0; i < self.players().length; i++)
+            if (self.players()[i].isCurrentPlayer()) {
+              currentPlayer = self.players()[i];
+            }
+
+        if (this.commentToAdd() != "") {
+            this.chat().comments.push(currentPlayer.handle + ": " + this.commentToAdd());
+            this.commentToAdd("");
+        }
+        return;
+    };
 }

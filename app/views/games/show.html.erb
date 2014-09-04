@@ -17,7 +17,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-8">
       <!-- ko foreach: rows -->
       <div class="row gameRow" data-bind="foreach: columns">
         <div data-bind="attr: { 'class': cssClass }, css: { currentBidder: player.seatNumber == $root.bidder(), lostDie: player.lostDie, noDice: player.noDice, currentPlayer: player.isCurrentPlayer, calledBS: player.calledBS, player: true }">
@@ -48,7 +48,17 @@
       </div>
       <!-- /ko -->
     </div>
-    <div class="col-md-3" data-bind="foreach: log().rounds">
+    <div class="col-md-2">
+      <ul style="padding:0; margin:0;" data-bind="foreach: chat().comments">
+       <li style="padding:0 0 5px; list-style:none;" data-bind="text: $data"></li>
+      </ul>
+
+      <form data-bind="submit: addComment">
+          <textarea data-bind='value: commentToAdd, valueUpdate: "afterkeydown"' style="border-radius:5px; border:1px solid #ccc; margin:0 0 10px;"></textarea>
+          <button type="submit" data-bind="enable: commentToAdd().length > 0" class="btn btn-primary">Comment</button>
+      </form>
+    </div>
+    <div class="col-md-2" data-bind="foreach: log().rounds">
       <div data-bind="css: { panel: true, 'panel-default': !playerLostDie(), 'panel-danger': playerLostDie() }">
         <div class="panel-heading" data-bind="visible: !live(), text: description, click: function(event){ this.show(!this.show()); }"></div>
         <div class="panel-body" data-bind="visible: showBody()">
