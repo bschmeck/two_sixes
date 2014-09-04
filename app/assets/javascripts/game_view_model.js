@@ -5,6 +5,7 @@ function GameViewModel(urls) {
     this.eventsUrl = urls["events"];
     this.bidUrl = urls["bid"];
     this.bsUrl = urls["bs"];
+    this.commentsUrl = urls["comments"];
     this.highwaterMark = -1;
     this.bidder = ko.observable(0);
     this.waiting = false;
@@ -146,6 +147,10 @@ function GameViewModel(urls) {
             return func(event);
         else
             return 0;
+    }
+    self.eventHandlers["Comment"] = function(event) {
+        self.displayComment(event.data);
+        return 0;
     }
     self.eventHandlers["Player Added"] = function(event) {
         self.addPlayer(new Player(event.data));
@@ -315,9 +320,22 @@ function GameViewModel(urls) {
             }
 
         if (this.commentToAdd() != "") {
+            //Push comment to server
+            $.post(self.commentsUrl, { message: this.commentToAdd() }, function(data) {
+                //commented
+            });
+
             this.chat().comments.push(currentPlayer.handle + ": " + this.commentToAdd());
             this.commentToAdd("");
         }
         return;
+    };
+
+    self.displayComment = function(data) {
+      var player = self.playerInSeat(data.seatNumber);
+      if (!player.isCurrentPlayer())
+        this.chat().comments.push(player.handle + ": " + data.message);
+
+      return;
     };
 }

@@ -27,6 +27,11 @@ class GamesController < ApplicationController
     game.bs(current_user)
   end
 
+  def comments
+    game = current_user.games.find(params[:id])
+    game.add_comment(current_user, params[:message])
+  end
+
   def create
     @game = current_user.owned_games.create
     handle = params[:handle]
@@ -86,6 +91,7 @@ class GamesController < ApplicationController
     @urls[:bid] = bid_game_url(@game)
     @urls[:bs] = bs_game_url(@game)
     @urls[:events] = events_game_url(@game)
+    @urls[:comments] = comments_game_url(@game)
 
     if @game.finished?
       redirect_to stats_games_path(@game)

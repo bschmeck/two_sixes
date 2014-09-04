@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     member do
       post 'bid'
       post 'bs'
+      post 'comments'
       get 'events'
       post 'invite'
       post 'start'
