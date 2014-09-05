@@ -16,4 +16,12 @@ Bid = function (number, faceValue) {
     this.toDice = function() {
         return this.number + ' ' + DICE_ICONS[this.faceValue];
     };
+
+    this.lessThanOrEqual = function(bid) {
+        if (this.number < bid.number)
+            return true;
+        if (this.number > bid.number)
+            return false;
+        return this.faceValue <= bid.faceValue;
+    }
 }

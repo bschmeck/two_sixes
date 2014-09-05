@@ -9,6 +9,7 @@ class Call < ActiveRecord::Base
       ret[:faceValue] = bid.face_value
     else
       ret[:totals] = round.totals_by_seat(previous_bid.face_value)
+      ret[:dice] = round.rolls.map(&:to_hash)
     end
 
     ret

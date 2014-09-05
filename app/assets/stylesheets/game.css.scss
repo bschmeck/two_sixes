@@ -86,3 +86,14 @@ body {
     }
   }
 }
+
+.diceTable {
+     margin-bottom: 10px;
+     th, td {
+         border: 1px solid #ccc;
+         padding: 5px;
+     }
+     tr.diceTotals {
+         font-weight: bold;
+     }
+}

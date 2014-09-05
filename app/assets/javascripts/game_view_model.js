@@ -205,6 +205,11 @@ function GameViewModel(urls) {
             if (i == event.data.seat)
                 player.calledBS(true);
         }
+        for (var i = 0; i < event.data.dice.length; i++) {
+            var roll = event.data.dice[i];
+            var player = self.playerInSeat(roll.seatNumber);
+            self.log().addRoll(player, roll.dice);
+        }
         self.diceTotal(new Bid(total, self.currentBid().faceValue));
 
         return 2000;
@@ -238,8 +243,11 @@ function GameViewModel(urls) {
         var number = parseInt($("#number").val());
         var faceValue = parseInt($("#face_value").val());
         var bid = new Bid(number, faceValue);
-
-        self.submitBid(bid);
+        
+        if (self.currentBid() && bid.lessThanOrEqual(self.currentBid()))
+            alert("Illegal bid.  Please try again.");
+        else
+            self.submitBid(bid);
     }
     self.submitBid = function(bid) {
         self.bidMade(true);
