@@ -70,6 +70,8 @@ class Game < ActiveRecord::Base
           name = "IllegalBid"
         end
       end
+    elsif action.is_a? Comment
+      name = "Comment"
     elsif action.is_a? Round
       name = "New Round"
     elsif action.is_a? Roll
@@ -91,6 +93,12 @@ class Game < ActiveRecord::Base
     end
 
     game_events.create(number: number, action: action, name: name)
+  end
+
+  def add_comment(user, message)
+    player = player_for(user)
+    comment = player.comments.create(message: message)
+    add_event(comment)
   end
 
   def filter_event?(player, event)

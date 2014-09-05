@@ -3,6 +3,7 @@ class Player < ActiveRecord::Base
   belongs_to :roll
   belongs_to :user
 
+  has_many :comments
   has_many :rolls
 
   delegate :dice, to: :roll
