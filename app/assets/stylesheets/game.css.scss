@@ -1,4 +1,4 @@
-html, body, .container-fluid, .game_content {height: 97%}
+html, body, .container-fluid, .game_content {height: 97.5%}
 
 body {
    background: image-url('debut_light.png');
@@ -67,6 +67,8 @@ body {
   height:100%;
   border-right:1px solid #ccc;
   ul {
+    height:80%;
+    overflow:auto;
     li {
       span {
         font-weight:bold;

@@ -19,6 +19,7 @@ function GameViewModel(urls) {
     this.log = ko.observable(new Log());
     this.chat = ko.observable(new Chat());
     this.commentToAdd = ko.observable("");
+    var chat_room = $('#chat ul');
 
     self.players = ko.observableArray();
     self.addPlayer = function(player) {
@@ -243,7 +244,7 @@ function GameViewModel(urls) {
         var number = parseInt($("#number").val());
         var faceValue = parseInt($("#face_value").val());
         var bid = new Bid(number, faceValue);
-        
+
         if (self.currentBid() && bid.lessThanOrEqual(self.currentBid()))
             alert("Illegal bid.  Please try again.");
         else
@@ -336,6 +337,10 @@ function GameViewModel(urls) {
             this.chat().comments.push("<span>" + currentPlayer.handle + ":</span> " + this.commentToAdd());
             this.commentToAdd("");
         }
+
+        var height = chat_room[0].scrollHeight;
+        chat_room.scrollTop(height + 100);
+
         return;
     };
 
@@ -343,6 +348,9 @@ function GameViewModel(urls) {
       var player = self.playerInSeat(data.seatNumber);
       if (!player.isCurrentPlayer())
         this.chat().comments.push("<span>" + player.handle + ":</span> " + data.message);
+
+      var height = chat_room[0].scrollHeight;
+      chat_room.scrollTop(height + 100);
 
       return;
     };
