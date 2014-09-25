@@ -19,7 +19,8 @@ function GameViewModel(urls) {
     this.log = ko.observable(new Log());
     this.chat = ko.observable(new Chat());
     this.message = ko.observable("");
-    this.toggleFaviconTimer = null;
+    this.initialTitle = document.title;
+    this.toggleTurnNotificationTimer = null;
     var chat_room = $('#chat ul');
 
     self.players = ko.observableArray();
@@ -254,8 +255,8 @@ function GameViewModel(urls) {
             self.submitBid(bid);
     }
     self.setBidMade = function() {
-        clearInterval(self.toggleFaviconTimer);
-        self.resetFavicon();
+        clearInterval(self.toggleTurnNotificationTimer);
+        self.resetTurnNotification();
         self.bidMade(true);
     }
     self.submitBid = function(bid) {
@@ -324,7 +325,7 @@ function GameViewModel(urls) {
     self.setBidder = function(seatNumber) {
         self.bidder(seatNumber);
         if (self.playerInSeat(seatNumber).isCurrentPlayer())
-            self.toggleFaviconTimer = setInterval(self.toggleFavicon, 600);
+            self.toggleTurnNotificationTimer = setInterval(self.toggleTurnNotification, 600);
         self.bidMade(false);
     };
 
@@ -365,14 +366,18 @@ function GameViewModel(urls) {
         return;
     };
 
-    self.toggleFavicon = function() {
-        if ($("#favicon").attr("href") == FAVICON_BLACK)
+    self.toggleTurnNotification = function() {
+        if (document.title == self.initialTitle) {
+            document.title = "Your Turn!";
             $("#favicon").attr("href", FAVICON_RED);
-        else
+        } else {
+            document.title = self.initialTitle;
             $("#favicon").attr("href", FAVICON_BLACK);
+        }
     };
 
-    self.resetFavicon = function(){
+    self.resetTurnNotification = function() {
+        document.title = self.initialTitle;
         $("#favicon").attr("href", FAVICON_BLACK);
     };
 }
